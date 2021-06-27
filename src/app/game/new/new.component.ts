@@ -1,5 +1,5 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApplicationRef, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,10 +13,10 @@ export class NewComponent implements OnInit {
   colsSubscription: Subscription;
   rowsSubscription: Subscription;
 
-  rows: number;
-  cols: number;
+  rows: AbstractControl;
+  cols: AbstractControl;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private cdRef: ChangeDetectorRef) {
     this.tableForm = this.fb.group({
       rows: [3, [Validators.required, Validators.min(1)]],
       cols: [6, [Validators.required, Validators.min(1)]],
@@ -38,8 +38,8 @@ export class NewComponent implements OnInit {
       this.drawGrid();
     });
 
-    this.rows = this.tableForm.controls['rows'].value;
-    this.cols = this.tableForm.controls['cols'].value;
+    this.rows = this.tableForm.controls['rows'];
+    this.cols = this.tableForm.controls['cols'];
   }
 
   ngOnInit(): void {}
@@ -49,6 +49,7 @@ export class NewComponent implements OnInit {
     for (let i = 0; i < this.tableForm.controls['rows'].value; i++) {
       this.table[i] = new Array(this.tableForm.controls['cols'].value);
     }
+    this.cdRef.detectChanges();
   }
 
   ngOnDestroy(): void {
