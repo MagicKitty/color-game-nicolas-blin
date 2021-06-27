@@ -5,7 +5,15 @@
 <form
   [formGroup]="authenticationForm"
   (ngSubmit)="authenticate(authenticationForm)">
+
   <input type="email" formControlName="email">
+  <div *ngIf="email.hasError('required')">Email is mandatory</div>
+  <div *ngIf="email.hasError('email')">example@domain.com</div>
+  <div *ngIf="email.hasError('minlength')">Must be 6 characters long at least</div>
+
   <input type="password" formControlName="password">
+  <div *ngIf="password.hasError('required')">Password is mandatory</div>
+  <div *ngIf="password.hasError('minlength')">Must be 5 chararcters long at least</div>
+
   <button type="submit" [disabled]="!authenticationForm.valid && authenticationForm.touched">Submit</button>
 </form>
