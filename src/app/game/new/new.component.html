@@ -6,8 +6,8 @@
 
 <table>
   <tbody>
-  <tr *ngFor="let row of counter(rows)">
-    <td *ngFor="let col of counter(cols)">
+  <tr *ngFor="let r of counter(rows); let row=index">
+    <td *ngFor="let c of counter(cols); let col=index">
       <app-case [(color)]="table[row][col]"></app-case>
     </td>
   </tr>
