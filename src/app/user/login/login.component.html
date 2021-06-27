@@ -1,1 +1,11 @@
-<p>login works!</p>
+<h1>Login</h1>
+<div class="alert aler-danger" *ngIf="authenticationError">
+  Error: invalid credential
+</div>
+<form
+  [formGroup]="authenticationForm"
+  (ngSubmit)="authenticate(authenticationForm)">
+  <input type="email" formControlName="email">
+  <input type="password" formControlName="password">
+  <button type="submit" [disabled]="!authenticationForm.valid && authenticationForm.touched">Submit</button>
+</form>
