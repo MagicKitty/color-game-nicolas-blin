@@ -3,3 +3,13 @@
   <input type="number" formControlName="rows">
   <input type="number" formControlName="cols">
 </form>
+
+<table>
+  <tbody>
+  <tr *ngFor="let row of counter(rows)">
+    <td *ngFor="let col of counter(cols)">
+      <app-case [(color)]="table[row][col]"></app-case>
+    </td>
+  </tr>
+  </tbody>
+</table>

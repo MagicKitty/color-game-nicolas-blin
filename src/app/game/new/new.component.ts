@@ -13,6 +13,9 @@ export class NewComponent implements OnInit {
   colsSubscription: Subscription;
   rowsSubscription: Subscription;
 
+  rows: number;
+  cols: number;
+
   constructor(private fb: FormBuilder) {
     this.tableForm = this.fb.group({
       rows: [3, [Validators.required, Validators.min(1)]],
@@ -34,6 +37,9 @@ export class NewComponent implements OnInit {
     ].valueChanges.subscribe(() => {
       this.drawGrid();
     });
+
+    this.rows = this.tableForm.controls['rows'].value;
+    this.cols = this.tableForm.controls['cols'].value;
   }
 
   ngOnInit(): void {}
@@ -48,5 +54,9 @@ export class NewComponent implements OnInit {
   ngOnDestroy(): void {
     this.colsSubscription.unsubscribe();
     this.rowsSubscription.unsubscribe();
+  }
+
+  counter(i: number) {
+    return new Array(i);
   }
 }
